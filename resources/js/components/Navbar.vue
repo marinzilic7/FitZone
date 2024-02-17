@@ -4,9 +4,9 @@ import { RouterLink, RouterView } from "vue-router";
 
 <template>
     <div>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg navBar">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Navbar</a>
+                <img src="../images/nav_logo.png" height="30px" width="100px" alt="">
                 <button
                     class="navbar-toggler"
                     type="button"
@@ -22,21 +22,21 @@ import { RouterLink, RouterView } from "vue-router";
                     class="collapse navbar-collapse"
                     id="navbarSupportedContent"
                 >
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav me-auto ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a
-                                class="nav-link active"
+                                class="nav-link active text-light"
                                 aria-current="page"
                                 href="#"
                                 >Home</a
                             >
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
+                            <a class="nav-link text-light" href="#">Link</a>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown ">
                             <a
-                                class="nav-link dropdown-toggle"
+                                class="nav-link dropdown-toggle text-light "
                                 href="#"
                                 role="button"
                                 data-bs-toggle="dropdown"
@@ -61,8 +61,8 @@ import { RouterLink, RouterView } from "vue-router";
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" aria-disabled="true"
+                        <li class="nav-item ">
+                            <a class="nav-link disabled text-light" aria-disabled="true"
                                 >Disabled</a
                             >
                         </li>
@@ -74,7 +74,7 @@ import { RouterLink, RouterView } from "vue-router";
                             placeholder="Search"
                             aria-label="Search"
                         />
-                        <button class="btn btn-outline-success" type="submit">
+                        <button class="btn btn-outline-light" type="submit">
                             Search
                         </button>
                     </form>
@@ -87,4 +87,10 @@ import { RouterLink, RouterView } from "vue-router";
 
 <script setup></script>
 
-<style scoped></style>
+<style scoped>
+
+.navBar{
+    background-color:  #282828;
+}
+
+</style>

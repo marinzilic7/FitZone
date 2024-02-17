@@ -6,7 +6,7 @@
 <template>
     <Navbar />
     <div>
-        Home Page
+        <p class="text-light">Home page</p>
     </div>
 </template>
 
