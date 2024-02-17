@@ -1,5 +1,6 @@
 <template>
-    <div class="container">
+    <div class="container-fluid">
+        <div class="container">
         <div
             class="login-form d-flex justify-content-center align-items-center vh-100"
         >
@@ -9,7 +10,7 @@
                 class="col-12  col-sm-12 col-md-10 col-lg-7 p-5 rounded-3 shadow-sm login-form-details"
             >
             <div class="mb-3 d-flex justify-content-center">
-                <img src="../../images/logo.png" alt="">
+                <img src="../images/logo.png" alt="">
             </div>
                 <div class="form-floating mb-3">
                     <input
@@ -79,6 +80,8 @@
             </form>
         </div>
     </div>
+    </div>
+
 </template>
 
 <script>
@@ -145,6 +148,24 @@ export default{
 </script>
 
 <style scoped>
+
+.container-fluid {
+    background-image: url("../images/login_back_2.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
+.container-fluid::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
 .login-form-details {
     background-color: #282828;
     padding: 5vh !important;
