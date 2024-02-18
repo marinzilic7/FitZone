@@ -4,11 +4,9 @@ import Register from '../views/Register.vue'
 import Home from '../views/Home.vue'
 import Services from '../views/Services.vue'
 import Account from '../views/Account.vue'
-
-
-
-
-
+import Users from '../views/administration/Users.vue'
+import Coach from '../views/administration/Coach.vue'
+import Trainings from '../views/administration/Trainings.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,12 +37,21 @@ const router = createRouter({
             name: 'account',
             component: Account
         },
-
-
-
-
-
-
+        {
+            path:'/users',
+            name: 'users',
+            component: Users
+        },
+        {
+            path:'/coach',
+            name: 'coach',
+            component: Coach
+        },
+        {
+            path:'/trainings',
+            name: 'trainings',
+            component: Trainings
+        },
 
     ]
 })
