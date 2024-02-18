@@ -122,6 +122,15 @@ import { RouterLink, RouterView } from "vue-router";
                                         Logout
                                     </a>
                                 </li>
+                                <li>
+                                    <RouterLink to="/account" class="dropdown-item"
+
+
+
+                                    >
+                                        Račun
+                                    </RouterLink>
+                                </li>
                             </ul>
                         </li>
                     </ul>

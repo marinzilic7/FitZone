@@ -29,7 +29,7 @@ class UserController extends Controller
         );
 
         $data['password'] = Hash::make($data['password']);
-        $data['role'] = 'user'; //default role
+        $data['role'] = 'korisnik'; //default role
         $user = new User();
         $user->create($data);
         return response()->json(['message' => 'Uspjesna registracija'], 201);
@@ -73,5 +73,10 @@ class UserController extends Controller
     public function logout(){
         Auth::logout();
         return response()->json(['redirect' => '/login']);
+    }
+
+    public function getUserData(){
+        $user = Auth::user();
+        return response()->json($user);
     }
 }

@@ -11,5 +11,6 @@
 <style  scoped>
     .footerBar{
         background-color:#282828 ;
+        z-index:2
     }
 </style>

@@ -3,7 +3,7 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Home from '../views/Home.vue'
 import Services from '../views/Services.vue'
-
+import Account from '../views/Account.vue'
 
 
 
@@ -33,7 +33,12 @@ const router = createRouter({
             path:'/services',
             name: 'services',
             component: Services
-        }
+        },
+        {
+            path:'/account',
+            name: 'account',
+            component: Account
+        },
 
 
 
