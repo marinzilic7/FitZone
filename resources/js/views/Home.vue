@@ -1,5 +1,6 @@
 <script setup>
 import Navbar from "../components/Navbar.vue";
+import Footer from "../components/Footer.vue";
 </script>
 
 <template>
@@ -7,8 +8,8 @@ import Navbar from "../components/Navbar.vue";
 
     <div class="info">
         <div class="d-flex flex-column align-items-start ms-5 me-5">
-            <img src="../images/logo.png" alt="" class="mt-2"/>
-            <p class="text-light col-12 col-lg-9 col-xl-6  mt-3 fs-5">
+            <img src="../images/logo.png" alt="" class="mt-2" />
+            <p class="text-light col-12 col-lg-9 col-xl-6 mt-3 fs-5">
                 Fitness je stanje optimalnog fizičkog i mentalnog blagostanja,
                 postignuto redovitom tjelovježbom i uravnoteženom prehranom.
                 Obuhvaća snagu, fleksibilnost, izdržljivost i opću zdravstvenu
@@ -16,8 +17,14 @@ import Navbar from "../components/Navbar.vue";
                 energetske razine, smanjiti rizik od kroničnih bolesti i
                 poboljšati kvalitetu života.
             </p>
-            <button class="btn btn-warning mt-1 col-lg-2 col-md-3 col-sm-3 col-12">Kreni</button>
-            <div class="d-flex justify-content-between col-12 col-xl-3 col-lg-5 mt-3">
+            <button
+                class="btn btn-warning mt-1 col-lg-2 col-md-3 col-sm-3 col-12"
+            >
+                Kreni
+            </button>
+            <div
+                class="d-flex justify-content-between col-12 col-xl-3 col-lg-5 mt-3"
+            >
                 <div>
                     <h1 class="text-warning">4k</h1>
                     <p class="text-warning">Clients</p>
@@ -33,7 +40,20 @@ import Navbar from "../components/Navbar.vue";
             </div>
         </div>
     </div>
+    <br />
+    <br />
+    <br />
+    <div class="mt-3">
+        <h1 class="text-light text-center mt-2 animateText"><span class="text-warning">KRENI</span> ZDRAVO!</h1>
+    </div>
+    <Footer/>
 </template>
+
+<script>
+export default {
+
+};
+</script>
 
 <style scoped>
 .info {
@@ -56,4 +76,27 @@ import Navbar from "../components/Navbar.vue";
     background-color: rgba(0, 0, 0, 0.3);
     z-index: -1;
 }
+
+.animateText {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    letter-spacing: 15px;
+    font-size: 5em;
+}
+
+.animateText {
+    animation: fadeInText 2s forwards infinite;
+}
+
+@keyframes fadeInText {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
+
 </style>
