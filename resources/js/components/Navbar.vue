@@ -29,15 +29,16 @@ import { RouterLink, RouterView } from "vue-router";
                 >
                     <ul class="navbar-nav me-auto ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a
-                                class="nav-link active text-light"
-                                aria-current="page"
-                                href="#"
-                                >Fitzone</a
+                            <RouterLink to="/home" class="nav-link text-light"
+                                >Home</RouterLink
                             >
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="#">Link</a>
+                            <RouterLink
+                                to="/services"
+                                class="nav-link text-light"
+                                >Usluge</RouterLink
+                            >
                         </li>
                         <li class="nav-item dropdown">
                             <a
@@ -47,7 +48,7 @@ import { RouterLink, RouterView } from "vue-router";
                                 data-bs-toggle="dropdown"
                                 aria-expanded="false"
                             >
-                                Dropdown
+                                Trening
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
@@ -70,7 +71,7 @@ import { RouterLink, RouterView } from "vue-router";
                             <a
                                 class="nav-link disabled text-light"
                                 aria-disabled="true"
-                                >Disabled</a
+                                >Kontakt</a
                             >
                         </li>
                     </ul>
@@ -83,19 +84,18 @@ import { RouterLink, RouterView } from "vue-router";
                         />
                         <div>
                             <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            fill="currentColor"
-                            class="bi bi-search text-warning mt-1 me-3"
-                            viewBox="0 0 16 16"
-                        >
-                            <path
-                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
-                            />
-                        </svg>
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                fill="currentColor"
+                                class="bi bi-search text-warning mt-1 me-3"
+                                viewBox="0 0 16 16"
+                            >
+                                <path
+                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+                                />
+                            </svg>
                         </div>
-
                     </form>
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown" v-if="isLoggedIn">
@@ -194,20 +194,17 @@ export default {
     background-color: #282828;
 }
 
-.searchBar{
-    border: 1px solid #FFBA00;
+.searchBar {
+    border: 1px solid #ffba00;
     background-color: #282828;
-    outline:none !important;
-    color:#fff;
-    padding:3px;
+    outline: none !important;
+    color: #fff;
+    padding: 3px;
     border-radius: 15px;
 }
 
-.searchBar::placeholder{
-    color:#fff;
-    padding-left:10px;
+.searchBar::placeholder {
+    color: #fff;
+    padding-left: 10px;
 }
-
-
-
 </style>
