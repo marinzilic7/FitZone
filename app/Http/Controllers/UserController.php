@@ -58,4 +58,20 @@ class UserController extends Controller
             return response()->json(['message' => 'Neuspjesna prijava']);
         }
     }
+
+    public function isLogged()
+    {
+
+        $user = Auth::user();
+        if ($user) {
+            return response()->json($user);
+        } else {
+            return response()->json(null);
+        }
+    }
+
+    public function logout(){
+        Auth::logout();
+        return response()->json(['redirect' => '/login']);
+    }
 }

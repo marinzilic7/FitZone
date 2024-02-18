@@ -6,7 +6,12 @@ import { RouterLink, RouterView } from "vue-router";
     <div>
         <nav class="navbar navbar-expand-lg navBar">
             <div class="container-fluid">
-                <img src="../images/nav_logo.png" height="30px" width="100px" alt="">
+                <img
+                    src="../images/nav_logo.png"
+                    height="30px"
+                    width="100px"
+                    alt=""
+                />
                 <button
                     class="navbar-toggler"
                     type="button"
@@ -28,15 +33,15 @@ import { RouterLink, RouterView } from "vue-router";
                                 class="nav-link active text-light"
                                 aria-current="page"
                                 href="#"
-                                >Home</a
+                                >Fitzone</a
                             >
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-light" href="#">Link</a>
                         </li>
-                        <li class="nav-item dropdown ">
+                        <li class="nav-item dropdown">
                             <a
-                                class="nav-link dropdown-toggle text-light "
+                                class="nav-link dropdown-toggle text-light"
                                 href="#"
                                 role="button"
                                 data-bs-toggle="dropdown"
@@ -61,23 +66,65 @@ import { RouterLink, RouterView } from "vue-router";
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item ">
-                            <a class="nav-link disabled text-light" aria-disabled="true"
+                        <li class="nav-item">
+                            <a
+                                class="nav-link disabled text-light"
+                                aria-disabled="true"
                                 >Disabled</a
                             >
                         </li>
                     </ul>
                     <form class="d-flex" role="search">
                         <input
-                            class="form-control me-2"
+                            class="form-control me-2 searchBar shadow-none"
                             type="search"
                             placeholder="Search"
                             aria-label="Search"
                         />
-                        <button class="btn btn-outline-light" type="submit">
-                            Search
-                        </button>
+                        <div>
+                            <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            fill="currentColor"
+                            class="bi bi-search text-warning mt-1 me-3"
+                            viewBox="0 0 16 16"
+                        >
+                            <path
+                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+                            />
+                        </svg>
+                        </div>
+
                     </form>
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown" v-if="isLoggedIn">
+                            <a
+                                class="nav-link dropdown-toggle text-light"
+                                href="#"
+                                id="navbarDropdown"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                            >
+                                {{ loggedInUser.firstName }}
+                            </a>
+                            <ul
+                                class="dropdown-menu dropdown-menu-end"
+                                aria-labelledby="navbarDropdown"
+                            >
+                                <li>
+                                    <a
+                                        @click="logout()"
+                                        class="dropdown-item"
+                                        href="#"
+                                    >
+                                        Logout
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -85,12 +132,82 @@ import { RouterLink, RouterView } from "vue-router";
     <RouterView />
 </template>
 
-<script setup></script>
+<script>
+import { mapState } from "vuex";
+import axios from "axios";
+import { mapGetters } from "vuex";
+
+export default {
+    data() {
+        return {
+            isLoggedIn: false,
+        };
+    },
+
+    computed: {
+        ...mapState(["loginMessage"]),
+        ...mapGetters(["loggedInUser"]),
+        isLoggedIn() {
+            return this.loggedInUser !== null;
+        },
+    },
+    created() {
+        if (this.loginMessage) {
+            setTimeout(() => {
+                this.$store.commit("setLoginMessage", "");
+            }, 2000);
+        }
+    },
+    methods: {
+        checkLoginStatus() {
+            axios
+                .get("/isLogged")
+                .then((response) => {
+                    this.loggedInUser = response.data;
+
+                    this.isLoggedIn = true;
+                    console.log(this.isLoggedIn);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+        logout() {
+            axios
+                .post("/logout")
+                .then((response) => {
+                    this.isLoggedIn = false;
+                    this.loggedInUser = null;
+                    this.$store.dispatch("logout");
+                    this.$router.push("/");
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+    },
+};
+</script>
 
 <style scoped>
-
-.navBar{
-    background-color:  #282828;
+.navBar {
+    background-color: #282828;
 }
+
+.searchBar{
+    border: 1px solid #FFBA00;
+    background-color: #282828;
+    outline:none !important;
+    color:#fff;
+    padding:3px;
+    border-radius: 15px;
+}
+
+.searchBar::placeholder{
+    color:#fff;
+    padding-left:10px;
+}
+
+
 
 </style>
