@@ -12,6 +12,7 @@ Route::post('/logout',[UserController::class,'logout']);
 Route::get('/isLogged',[UserController::class,'isLogged']);
 
 Route::get('/getUserData',[UserController::class,'getUserData']);
+Route::get('/getUsers',[UserController::class,'getUsers']);
 
 
 Route::get('/{any}', function () {

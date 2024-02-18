@@ -1,9 +1,12 @@
 <template>
     <div
         class="offcanvas offcanvas-start"
+        data-bs-scroll="true"
+        data-bs-backdrop="false"
         tabindex="-1"
-        id="offcanvasExample"
-        aria-labelledby="offcanvasExampleLabel"
+        id="offcanvasScrolling"
+        aria-labelledby="offcanvasScrollingLabel"
+
     >
         <div class="offcanvas-header bg-dark">
             <h5 class="offcanvas-title text-light" id="offcanvasExampleLabel">
@@ -76,7 +79,7 @@
     </div>
 </template>
 
-<script setup></script>
+<script></script>
 
 <style scoped>
 .modalBody {

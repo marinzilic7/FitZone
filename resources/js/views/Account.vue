@@ -1,6 +1,6 @@
 <script setup>
 import Navbar from "../components/Navbar.vue";
-import Footer from '../components/Footer.vue';
+import Footer from "../components/Footer.vue";
 import Modal from "../components/Modal.vue";
 import axios from "axios";
 </script>
@@ -21,9 +21,8 @@ import axios from "axios";
                     class="bi bi-list text-light"
                     viewBox="0 0 16 16"
                     data-bs-toggle="offcanvas"
-                    href="#offcanvasExample"
-                    role="button"
-                    aria-controls="offcanvasExample"
+                    data-bs-target="#offcanvasScrolling"
+                    aria-controls="offcanvasScrolling"
                 >
                     <path
                         fill-rule="evenodd"
@@ -108,7 +107,7 @@ import axios from "axios";
             </div>
         </div>
     </div>
-    <Modal/>
+    <Modal />
     <Footer />
 </template>
 

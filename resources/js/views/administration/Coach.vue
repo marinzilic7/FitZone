@@ -12,6 +12,28 @@ import Footer from '../../components/Footer.vue';
     <Footer />
 </template>
 
+
+<script>
+export default {
+    data() {
+        return {
+            users:[],
+        }
+    },
+    methods: {
+        getUser(){
+            axios.get('/getUsers')
+            .then(response => {
+                this.users = response.data.users;
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        }
+    }
+}
+</script>
+
 <style lang="scss" scoped>
 
 </style>

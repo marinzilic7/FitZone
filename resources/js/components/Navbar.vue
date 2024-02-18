@@ -114,6 +114,14 @@ import { RouterLink, RouterView } from "vue-router";
                                 aria-labelledby="navbarDropdown"
                             >
                                 <li>
+                                    <RouterLink
+                                        to="/account"
+                                        class="dropdown-item"
+                                    >
+                                        Račun
+                                    </RouterLink>
+                                </li>
+                                <li>
                                     <a
                                         @click="logout()"
                                         class="dropdown-item"
@@ -121,15 +129,6 @@ import { RouterLink, RouterView } from "vue-router";
                                     >
                                         Logout
                                     </a>
-                                </li>
-                                <li>
-                                    <RouterLink to="/account" class="dropdown-item"
-
-
-
-                                    >
-                                        Račun
-                                    </RouterLink>
                                 </li>
                             </ul>
                         </li>
