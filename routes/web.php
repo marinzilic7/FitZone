@@ -4,6 +4,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CoachController;
+use App\Http\Controllers\TrainingController;
 
 
 
@@ -19,6 +20,10 @@ Route::post('/deleteUser/{id}',[UserController::class,'deleteUser']);
 Route::post('/addCoach',[CoachController::class,'addCoach']);
 Route::get('/getCoaches',[CoachController::class,'getCoaches']);
 Route::post('/deleteCoach/{id}',[CoachController::class,'deleteCoach']);
+
+Route::post('/addTraining',[TrainingController::class,'addTraining']);
+Route::get('/getTraining',[TrainingController::class,'getTrainings']);
+Route::post('/deleteTraining/{id}',[TrainingController::class,'deleteTraining']);
 
 Route::get('/{any}', function () {
     return view('welcome');

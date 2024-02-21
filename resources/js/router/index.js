@@ -8,6 +8,7 @@ import Users from '../views/administration/Users.vue'
 import Coach from '../views/administration/Coach.vue'
 import Trainings from '../views/administration/Trainings.vue'
 import Member from '../views/Member.vue'
+import Categories from '../views/Categories.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -59,7 +60,11 @@ const router = createRouter({
             name: 'member',
             component: Member
         },
-
+        {
+            path:'/categories',
+            name: 'categories',
+            component: Categories
+        }
     ]
 })
 

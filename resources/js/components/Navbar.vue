@@ -43,6 +43,9 @@ import { RouterLink, RouterView } from "vue-router";
                         <li class="nav-item">
                            <RouterLink class="nav-link text-light" to="/member">Članarine</RouterLink>
                         </li>
+                        <li class="nav-item">
+                           <RouterLink class="nav-link text-light" to="/categories">Treninzi</RouterLink>
+                        </li>
                     </ul>
                     <form class="d-flex" role="search">
                         <input

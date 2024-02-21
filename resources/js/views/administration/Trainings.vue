@@ -1,18 +1,236 @@
 <script setup>
 import Navbar from "../../components/Navbar.vue";
-import Footer from '../../components/Footer.vue';
+import Footer from "../../components/Footer.vue";
 </script>
 
 <template>
     <Navbar />
     <div>
-        <h1>TRENING</h1>
+        <button
+            class="btn float-end mt-3 me-3 btn-warning"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+            data-bs-whatever="@mdo"
+        >
+            Dodaj trening
+        </button>
+
+        <div
+            class="modal fade"
+            id="exampleModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-dark">
+                        <h1
+                            class="modal-title fs-5 text-light"
+                            id="exampleModalLabel"
+                        >
+                            Dodaj trening
+                        </h1>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div class="modal-body bg-dark">
+                        <form @submit.prevent="addTraining()" method="POST">
+                            <div class="mb-3">
+                                <label
+                                    for="recipient-name"
+                                    class="col-form-label text-light"
+                                    >Ime treninga:</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="recipient-name"
+                                    v-model="training.name"
+                                />
+                            </div>
+                            <div class="mb-3">
+                                <label
+                                    for="message-text"
+                                    class="col-form-label text-light"
+                                    >Opis:</label
+                                >
+                                <textarea
+                                    class="form-control"
+                                    id="message-text"
+                                    v-model="training.description"
+                                ></textarea>
+                            </div>
+                            <label
+                                for="formFileSm"
+                                class="form-label text-light"
+                                >Dodaj sliku
+                            </label>
+                            <div class="mb-3">
+                                <input
+                                    class="form-control form-control-sm"
+                                    id="formFileSm"
+                                    type="file"
+                                    @change="imageChange"
+                                    required
+                                />
+                            </div>
+                            <button type="submit" class="btn btn-warning w-100">
+                                Dodaj
+                            </button>
+                        </form>
+                    </div>
+                    <div class="modal-footer bg-dark">
+                        <button
+                            type="button"
+                            class="btn btn-secondary w-100"
+                            data-bs-dismiss="modal"
+                        >
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container mt-5">
+            <table class="table table-striped table-bordered table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Ime</th>
+                        <th scope="col">Opis</th>
+                        <th scope="col">Izbrisi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="training in trainings">
+                        <th scope="row">{{ training.id }}</th>
+                        <td>{{ training.name }}</td>
+                        <td>{{ training.description }}</td>
+                        <td>
+                            <button
+                                class="btn btn-sm"
+                                @click="deleteTraining(training.id)"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="25"
+                                    height="25"
+                                    fill="currentColor"
+                                    class="bi bi-person-dash text-danger"
+                                    viewBox="0 0 16 16"
+                                >
+                                    <path
+                                        d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7M11 12h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1m0-7a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4"
+                                    />
+                                    <path
+                                        d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z"
+                                    />
+                                </svg>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     <Footer />
 </template>
 
+<script>
+import axios from "axios";
 
+export default {
+    data() {
+        return {
+            training: {
+                name: "",
+                description: "",
+                image: "",
+            },
+            csrfToken: "",
+            trainings: [],
+        };
+    },
+    mounted() {
+        this.fetchCsrfToken();
+    },
+    created(){
+        this.getTraining();
+    },
+    methods: {
+        imageChange(event) {
+            this.training.image = event.target.files[0];
+        },
 
-<style lang="scss" scoped>
+        fetchCsrfToken() {
+            axios
+                .get("/sanctum/csrf-cookie")
+                .then((response) => {
+                    this.csrfToken = response.data.csrf_token;
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        },
+        addTraining() {
+            let training = new FormData();
+            training.append("name", this.training.name);
+            training.append("description", this.training.description);
+            training.append("image", this.training.image);
 
-</style>
+            axios.defaults.headers.common["X-CSRF-TOKEN"] = this.csrfToken;
+
+            axios
+                .post("/addTraining", training)
+                .then((response) => {
+                    this.message = response.data.message;
+                    this.getTraining();
+                    $("#exampleModal").modal("hide");
+                    this.training = {
+                        name: "",
+                        description: "",
+                        image: null,
+                    };
+                })
+                .catch((error) => {
+                    if (error.response && error.response.status === 422) {
+                        this.errors = error.response.data.errors;
+                    } else {
+                        console.log(error);
+                    }
+                });
+        },
+        getTraining() {
+            axios
+                .get("/getTraining")
+                .then((response) => {
+                    this.trainings = response.data.trainings;
+                    console.log("Lista treninga: ", this.trainings);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+
+        deleteTraining(id) {
+            axios
+                .post(`/deleteTraining/${id}`)
+                .then((response) => {
+                    this.message = response.data.message;
+                    this.getTraining();
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+    },
+};
+</script>
+
+<style scoped></style>
