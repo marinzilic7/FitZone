@@ -13,5 +13,11 @@ class User extends Model implements Authenticatable
     protected $fillable = [
         'firstName', 'lastName', 'email', 'password', 'role'
     ];
+
+    public function coaches()
+    {
+        return $this->hasMany(Coach::class);
+    }
+
     use HasFactory;
 }

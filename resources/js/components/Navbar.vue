@@ -30,49 +30,18 @@ import { RouterLink, RouterView } from "vue-router";
                     <ul class="navbar-nav me-auto ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <RouterLink to="/home" class="nav-link text-light"
-                                >Home</RouterLink
+                                >Fitzone</RouterLink
                             >
                         </li>
                         <li class="nav-item">
                             <RouterLink
                                 to="/services"
                                 class="nav-link text-light"
-                                >Usluge</RouterLink
+                                >Treneri</RouterLink
                             >
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a
-                                class="nav-link dropdown-toggle text-light"
-                                href="#"
-                                role="button"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                            >
-                                Trening
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class="dropdown-item" href="#">Action</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#"
-                                        >Another action</a
-                                    >
-                                </li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li>
-                                    <a class="dropdown-item" href="#"
-                                        >Something else here</a
-                                    >
-                                </li>
-                            </ul>
                         </li>
                         <li class="nav-item">
-                            <a
-                                class="nav-link disabled text-light"
-                                aria-disabled="true"
-                                >Kontakt</a
-                            >
+                           <RouterLink class="nav-link text-light" to="/member">Članarine</RouterLink>
                         </li>
                     </ul>
                     <form class="d-flex" role="search">

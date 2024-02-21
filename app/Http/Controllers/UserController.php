@@ -84,4 +84,10 @@ class UserController extends Controller
         $users = User::get();
         return response()->json(['users' => $users]);
     }
+
+    public function deleteUser($id){
+        $user = User::findorFail($id);
+        $user->delete();
+        return response()->json(['message' => 'Korisnik izbrisan']);
+    }
 }
