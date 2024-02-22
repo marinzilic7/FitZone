@@ -59,7 +59,7 @@ import Modal from "../../components/Modal.vue";
                         <td>
                             <button
                                 class="btn btn-sm"
-                                @click="deleteUser(clan.id)"
+                                @click="deleteMember(clan.id)"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -117,6 +117,18 @@ export default {
                 .then((response) => {
                     this.users = response.data.users;
                     console.log(this.users);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+
+        deleteMember(id) {
+            axios
+                .post(`/deleteMember/${id}`)
+                .then((response) => {
+                    this.message = response.data.message;
+                    this.getMembers();
                 })
                 .catch((error) => {
                     console.log(error);

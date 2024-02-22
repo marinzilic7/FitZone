@@ -46,4 +46,46 @@ class CoachController extends Controller
         $coach->delete();
         return response()->json(['message' => 'Trener izbrisan']);
     }
+
+    public function updateCoach(Request $request, $id){
+
+        $coach = Coach::findOrFail($id);
+        $data = $request->validate([
+            'firstName' => '',
+            'lastName' => '',
+            'description' => '',
+            'email' => '',
+            'age' => '',
+            'phone' => '',
+            'image' => '',
+
+        ]);
+
+        if($request->hasFile('image')){
+            $image = $request->file('image');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/images');
+            $image->move($destinationPath, $name);
+            $data['image'] = $name;
+        }
+
+
+        DB::table('coaches')
+    ->where('id', $id)
+    ->update([
+        'firstName' => $data['firstName'],
+        'lastName' => $data['lastName'],
+        'email' => $data['email'],
+        'age' => $data['age'],
+        'phone' => $data['phone'],
+        'description' => $data['description'],
+        'image' => $data['image']
+    ]);
+
+        $coach->save();
+        return response()->json([
+            'poruka' => 'Radionica uspjesno uređena',
+            'coach' => $coach,
+        ]);
+    }
 }

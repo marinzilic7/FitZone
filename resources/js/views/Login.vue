@@ -52,6 +52,12 @@
                     <p class="text-center text-light text-decoration-underline">
                         Pogledaj kao gost
                     </p>
+                    <div
+                        class="mt-3 alert alert-info infoMessage text-center"
+                        v-if="falseLogin"
+                    >
+                        Prijava nije uspjesna!
+                    </div>
                 </form>
             </div>
         </div>
@@ -133,13 +139,11 @@ export default {
 </script>
 
 <style scoped>
-
 .container-fluid {
     background-image: url("../images/login_back_2.jpg");
     background-size: cover;
     background-repeat: no-repeat;
 }
-
 
 .container-fluid::after {
     content: "";
@@ -166,5 +170,12 @@ export default {
     background-color: #ffba00;
     opacity: 0.8;
     border: none;
+}
+
+.infoMessage{
+    color:#000;
+    background-color: #ffba00;
+    border:none;
+    text-align: center;
 }
 </style>

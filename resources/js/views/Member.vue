@@ -5,6 +5,13 @@ import Footer from "../components/Footer.vue";
 
 <template>
     <Navbar />
+    <div v-if="succesMember" class="alert alert-dark infoMessage col-lg-2 col-xl-2 col-12 float-end ms-3 mt-3 me-3" role="alert">
+       {{message}}
+    </div>
+    <div v-if="failedMember" class="alert alert-dark infoMessage col-lg-2 col-xl-2 col-12 float-end ms-3 mt-3 me-3" role="alert">
+       Već ste učlanjeni!
+    </div>
+
     <div class="container d-flex justify-content-center">
         <div
             v-if="spinner"
@@ -38,7 +45,6 @@ import Footer from "../components/Footer.vue";
                                 id="floatingInput"
                                 placeholder="ime"
                                 v-model="member.firstName"
-
                             />
                             <label for="floatingInput">Ime</label>
                         </div>
@@ -50,20 +56,19 @@ import Footer from "../components/Footer.vue";
                                 id="floatingInput"
                                 placeholder="prezime"
                                 v-model="member.lastName"
-
                             />
                             <label for="floatingInput">Prezime</label>
                         </div>
                         <div>
-                            <label for="coachSelect" class="text-light"
-                                >Odaberi trenera</label
-                            >
                             <select
                                 id="coachSelect"
                                 class="form-select"
                                 aria-label="Default select example"
                                 v-model="member.coach_id"
                             >
+                                <option disabled value="">
+                                    Odaberi trenera
+                                </option>
                                 <option
                                     v-for="coach in coaches"
                                     :value="coach.id"
@@ -73,17 +78,16 @@ import Footer from "../components/Footer.vue";
                             </select>
                         </div>
                         <div class="mt-3">
-                            <label for="trainSelect" class="text-light"
-                                >Odaberi trening</label
-                            >
                             <select
                                 class="form-select"
                                 id="trainSelect"
                                 aria-label="Default select example"
                                 v-model="member.training_id"
                             >
+                                <option disabled value="">
+                                    Odaberi trening
+                                </option>
                                 <option
-                                    selected
                                     v-for="training in trainings"
                                     :value="training.id"
                                 >
@@ -122,6 +126,9 @@ export default {
             coaches: [],
             spinner: false,
             csrfToken: "",
+            message:"",
+            succesMember:false,
+            failedMember:false,
         };
     },
     created() {
@@ -146,9 +153,18 @@ export default {
                 .post("/addMember", Member)
                 .then((response) => {
                     this.message = response.data.message;
+                    this.succesMember = true;
                 })
                 .catch((error) => {
-                    console.log(error);
+                    if (error.response && error.response.status === 422) {
+                        this.errors = error.response.data.errors;
+                    } else if (
+                        error.response &&
+                        error.response.status === 409
+                    ) {
+                        this.failedMember = true;
+
+                    }
                 });
         },
         fetchCsrfToken() {
@@ -166,7 +182,6 @@ export default {
                 .get("/getUsers")
                 .then((response) => {
                     this.users = response.data.users;
-
                 })
                 .catch((error) => {
                     console.log(error);
@@ -206,6 +221,13 @@ export default {
 </script>
 
 <style scoped>
+
+.infoMessage{
+    color:#000;
+    background-color: #ffba00;
+    border:none;
+    text-align: center;
+}
 .login-form-details {
     background-color: #282828;
     padding: 5vh !important;

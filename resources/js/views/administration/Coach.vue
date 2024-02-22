@@ -193,6 +193,7 @@ import Modal from "../../components/Modal.vue";
                         <th scope="col">Godine</th>
                         <th scope="col">Kontakt</th>
                         <th scope="col">Izbrisi</th>
+                        <th scope="col">Uredi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -226,6 +227,185 @@ import Modal from "../../components/Modal.vue";
                                 </svg>
                             </button>
                         </td>
+                        <td>
+                            <button
+                                class="btn btn-sm"
+                                data-bs-toggle="modal"
+                                :data-bs-target="'#exampleModall' + coach.id"
+                                data-bs-whatever="@mdo"
+                                @click="updateCoach(coach)"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="25"
+                                    height="25"
+                                    fill="currentColor"
+                                    class="bi bi-person-add text-success"
+                                    viewBox="0 0 16 16"
+                                >
+                                    <path
+                                        d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4"
+                                    />
+                                    <path
+                                        d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z"
+                                    />
+                                </svg>
+                            </button>
+                            <div
+                                class="modal fade"
+                                :id="'exampleModall' + coach.id"
+                                tabindex="-1"
+                                :aria-labelledby="
+                                    'exampleModalLabel' + coach.id
+                                "
+                                aria-hidden="true"
+                            >
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-dark">
+                                            <h1
+                                                class="modal-title fs-5"
+                                                :id="'#exampleModall' + coach.id"
+                                            >
+                                                Uredi trenera
+                                            </h1>
+                                            <button
+                                                type="button"
+                                                class="btn-close"
+                                                data-bs-dismiss="modal"
+                                                aria-label="Close"
+                                            ></button>
+                                        </div>
+                                        <div class="modal-body bg-dark">
+                                            <form
+                                                @submit.prevent="
+                                                    coachUpdate(coach.id)
+                                                "
+                                            >
+                                                <div class="mb-3">
+                                                    <label
+                                                        for="recipient-name"
+                                                        class="col-form-label text-light"
+                                                        >Ime:</label
+                                                    >
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        id="recipient-name"
+                                                        v-model="
+                                                            update.firstName
+                                                        "
+                                                        required
+                                                    />
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label
+                                                        for="recipient-name"
+                                                        class="col-form-label text-light"
+                                                        >Prezime:</label
+                                                    >
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        id="recipient-name"
+                                                        v-model="update.lastName"
+                                                        required
+                                                    />
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label
+                                                        for="message-text"
+                                                        class="col-form-label text-light"
+                                                        >Description:</label
+                                                    >
+                                                    <textarea
+                                                        class="form-control"
+                                                        id="message-text"
+                                                        v-model="
+                                                            update.description
+                                                        "
+                                                        required
+                                                    ></textarea>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label
+                                                        for="recipient-name"
+                                                        class="col-form-label text-light"
+                                                        >Email:</label
+                                                    >
+                                                    <input
+                                                        type="email"
+                                                        class="form-control"
+                                                        id="recipient-name"
+                                                        v-model="update.email"
+                                                        required
+                                                    />
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label
+                                                        for="recipient-name"
+                                                        class="col-form-label text-light"
+                                                        >Godine</label
+                                                    >
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        id="recipient-name"
+                                                        v-model="update.age"
+                                                        required
+                                                    />
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label
+                                                        for="recipient-name"
+                                                        class="col-form-label text-light"
+                                                        >Kontakt:</label
+                                                    >
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        id="recipient-name"
+                                                        v-model="update.phone"
+                                                        required
+                                                    />
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label
+                                                        for="formFileSm"
+                                                        class="form-label"
+                                                        >Dodaj sliku
+                                                    </label>
+                                                    <input
+                                                        class="form-control form-control-sm"
+                                                        id="formFileSm"
+                                                        type="file"
+                                                        @change="imageUpdateChange"
+                                                        required
+                                                    />
+                                                </div>
+                                                <button
+                                                    type="submit"
+                                                    class="btn btn-warning w-100"
+                                                >
+                                                    Dodaj
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer bg-dark">
+                                            <button
+                                                type="button"
+                                                class="btn btn-secondary w-100"
+                                                data-bs-dismiss="modal"
+                                            >
+                                                Close
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -248,12 +428,21 @@ export default {
                 age: "",
                 phone: "",
                 image: "",
-
             },
             message: "",
             csrfToken: "",
             coaches: [],
-            users:[],
+            users: [],
+            update: {
+                firstName: "",
+                lastName: "",
+                description: "",
+                email: "",
+                age: "",
+                phone: "",
+                image: "",
+            },
+            coachId:null,
         };
     },
     created() {
@@ -274,6 +463,11 @@ export default {
         },
         imageChange(event) {
             this.coach.image = event.target.files[0];
+        },
+
+        imageUpdateChange(event){
+            this.update.image = event.target.files[0];
+
         },
 
         getCoaches() {
@@ -345,6 +539,50 @@ export default {
                 .catch((error) => {
                     console.log(error);
                 });
+        },
+
+        updateCoach(coach) {
+            this.coachId = coach.id;
+            this.update.firstName = coach.firstName;
+            this.update.lastName = coach.lastName;
+            this.update.description = coach.description;
+            this.update.email = coach.email;
+            this.update.age = coach.age;
+            this.update.phone = coach.phone;
+            this.update.image = coach.image;
+            $("#exampleModall" + coach.id).modal("show");
+        },
+
+        coachUpdate(id) {
+            let updateCoach = new FormData();
+            updateCoach.append("firstName", this.update.firstName);
+            updateCoach.append("lastName", this.update.lastName);
+            updateCoach.append("description", this.update.description);
+            updateCoach.append("email", this.update.email);
+            updateCoach.append("age", this.update.age);
+            updateCoach.append("phone", this.update.phone);
+            updateCoach.append("image", this.update.image);
+            axios.defaults.headers.common["X-CSRF-TOKEN"] = this.csrfToken;
+            axios
+                .post(`/updateCoach/${id}`, updateCoach)
+                .then((response) => {
+                    this.message = response.data.message;
+
+                    const coach = response.data.coach;
+                    const index = this.coaches.findIndex(
+                        (coach) => coach.id === this.radionicaId
+                    );
+                    if (index !== -1) {
+                        this.coaches[index].firstName = coach.firstName;
+                        this.coaches[index].description = coach.description;
+                        this.coaches[index].email = coach.email;
+                        this.coaches[index].age = coach.age;
+                        this.coaches[index].phone = coach.phone;
+                        this.coaches[index].image = coach.image;
+                    }
+                    this.getCoaches();
+                });
+            $("#exampleModall" + this.coachId).modal("hide");
         },
     },
 };

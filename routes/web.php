@@ -16,18 +16,18 @@ Route::get('/getUserData',[UserController::class,'getUserData']);
 Route::get('/getUsers',[UserController::class,'getUsers']);
 Route::post('/deleteUser/{id}',[UserController::class,'deleteUser']);
 
-
 Route::post('/addCoach',[CoachController::class,'addCoach']);
 Route::get('/getCoaches',[CoachController::class,'getCoaches']);
 Route::post('/deleteCoach/{id}',[CoachController::class,'deleteCoach']);
+Route::post('/updateCoach/{id}',[CoachController::class,'updateCoach']);
 
 Route::post('/addTraining',[TrainingController::class,'addTraining']);
 Route::get('/getTraining',[TrainingController::class,'getTrainings']);
 Route::post('/deleteTraining/{id}',[TrainingController::class,'deleteTraining']);
 
-
 Route::post('/addMember',[MemberController::class,'addMember']);
 Route::get('/getMembers',[MemberController::class,'getMember']);
+Route::post('/deleteMember/{id}',[MemberController::class,'deleteMember']);
 
 
 Route::get('/{any}', function () {
