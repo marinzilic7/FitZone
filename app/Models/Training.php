@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Training extends Model
 {
     protected $fillable = [
-        'user_id', 'name', 'description','image'
+        'user_id', 'name', 'description', 'price', 'image'
      ];
 
 

@@ -15,6 +15,7 @@ class TrainingController extends Controller
             'user_id' => '',
             'name' => '',
             'description' => '',
+            'price' => '',
             'image' => ''
         ]);
 

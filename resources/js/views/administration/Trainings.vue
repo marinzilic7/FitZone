@@ -1,10 +1,36 @@
 <script setup>
 import Navbar from "../../components/Navbar.vue";
 import Footer from "../../components/Footer.vue";
+import Modal from "../../components/Modal.vue";
 </script>
 
 <template>
     <Navbar />
+    <div v-for="user in users" :key="user.id">
+        <div
+            v-if="user.role === 'administrator'"
+            class="position-absoulte start-0 top-0"
+        >
+            <div>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="40"
+                    height="40"
+                    fill="currentColor"
+                    class="bi bi-list text-light"
+                    viewBox="0 0 16 16"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasScrolling"
+                    aria-controls="offcanvasScrolling"
+                >
+                    <path
+                        fill-rule="evenodd"
+                        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"
+                    />
+                </svg>
+            </div>
+        </div>
+    </div>
     <div>
         <button
             class="btn float-end mt-3 me-3 btn-warning"
@@ -64,6 +90,19 @@ import Footer from "../../components/Footer.vue";
                                     id="message-text"
                                     v-model="training.description"
                                 ></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label
+                                    for="recipient-name"
+                                    class="col-form-label text-light"
+                                    >Cijena treninga:</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="recipient-price"
+                                    v-model="training.price"
+                                />
                             </div>
                             <label
                                 for="formFileSm"
@@ -139,6 +178,7 @@ import Footer from "../../components/Footer.vue";
             </table>
         </div>
     </div>
+    <Modal />
     <Footer />
 </template>
 
@@ -152,16 +192,19 @@ export default {
                 name: "",
                 description: "",
                 image: "",
+                price: "",
             },
             csrfToken: "",
             trainings: [],
+            users: [],
         };
     },
     mounted() {
         this.fetchCsrfToken();
     },
-    created(){
+    created() {
         this.getTraining();
+        this.getUser();
     },
     methods: {
         imageChange(event) {
@@ -183,6 +226,7 @@ export default {
             training.append("name", this.training.name);
             training.append("description", this.training.description);
             training.append("image", this.training.image);
+            training.append("price", this.training.price);
 
             axios.defaults.headers.common["X-CSRF-TOKEN"] = this.csrfToken;
 
@@ -195,6 +239,7 @@ export default {
                     this.training = {
                         name: "",
                         description: "",
+                        price: "",
                         image: null,
                     };
                 })
@@ -224,6 +269,17 @@ export default {
                 .then((response) => {
                     this.message = response.data.message;
                     this.getTraining();
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+        getUser() {
+            axios
+                .get("/getUsers")
+                .then((response) => {
+                    this.users = response.data.users;
+                    console.log(this.users);
                 })
                 .catch((error) => {
                     console.log(error);
