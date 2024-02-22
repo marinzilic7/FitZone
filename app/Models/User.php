@@ -24,5 +24,10 @@ class User extends Model implements Authenticatable
         return $this->hasMany(Training::class);
     }
 
+    public function members()
+    {
+        return $this->hasMany(Member::class);
+    }
+
     use HasFactory;
 }

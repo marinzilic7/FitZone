@@ -16,5 +16,10 @@ class Coach extends Model
         return $this->belongsTo(User::class,'user_id');
     }
 
+    public function members()
+    {
+        return $this->hasMany(Member::class);
+    }
+
     use HasFactory;
 }

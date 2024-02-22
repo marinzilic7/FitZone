@@ -127,7 +127,7 @@ export default {
                 .get("/getUserData")
                 .then((response) => {
                     this.data = response.data;
-                    console.log(this.data);
+                    console.log(this.data.role);
                 })
                 .catch((error) => {
                     console.log(error);

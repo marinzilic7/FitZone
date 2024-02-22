@@ -5,14 +5,26 @@ import Footer from "../components/Footer.vue";
 
 <template>
     <Navbar />
-    <div>
+    <div class="container d-flex justify-content-center">
+        <div
+            v-if="spinner"
+            class="spinner-border text-warning position-absolute top-50"
+            role="status"
+        >
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    <div v-if="!spinner">
         <h1 class="text-light text-center mt-5">Učlani se</h1>
         <div class="container-fluid mt-3">
             <div class="container">
                 <div
                     class="login-form d-flex justify-content-center align-items-center"
+                    v-for="user in users"
+                    :key="user.id"
                 >
                     <form
+                        @submit.prevent="registerMember()"
                         method="POST"
                         class="col-12 col-sm-12 col-md-10 col-lg-7 p-5 rounded-3 shadow-sm login-form-details"
                     >
@@ -25,6 +37,8 @@ import Footer from "../components/Footer.vue";
                                 class="form-control"
                                 id="floatingInput"
                                 placeholder="ime"
+                                v-model="member.firstName"
+
                             />
                             <label for="floatingInput">Ime</label>
                         </div>
@@ -35,33 +49,53 @@ import Footer from "../components/Footer.vue";
                                 class="form-control"
                                 id="floatingInput"
                                 placeholder="prezime"
+                                v-model="member.lastName"
+
                             />
                             <label for="floatingInput">Prezime</label>
                         </div>
                         <div>
+                            <label for="coachSelect" class="text-light"
+                                >Odaberi trenera</label
+                            >
                             <select
+                                id="coachSelect"
                                 class="form-select"
                                 aria-label="Default select example"
+                                v-model="member.coach_id"
                             >
-                                <option selected>Odaberi trenera</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                                <option
+                                    v-for="coach in coaches"
+                                    :value="coach.id"
+                                >
+                                    {{ coach.firstName }} {{ coach.lastName }}
+                                </option>
                             </select>
                         </div>
                         <div class="mt-3">
+                            <label for="trainSelect" class="text-light"
+                                >Odaberi trening</label
+                            >
                             <select
                                 class="form-select"
+                                id="trainSelect"
                                 aria-label="Default select example"
+                                v-model="member.training_id"
                             >
-                                <option selected>Odaberi trening</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                                <option
+                                    selected
+                                    v-for="training in trainings"
+                                    :value="training.id"
+                                >
+                                    {{ training.name }}
+                                </option>
                             </select>
                         </div>
 
-                        <button class="btn p-3 w-100 mt-3 login-btn">
+                        <button
+                            type="submit"
+                            class="btn p-3 w-100 mt-3 login-btn"
+                        >
                             Učlani se
                         </button>
                     </form>
@@ -73,22 +107,101 @@ import Footer from "../components/Footer.vue";
 </template>
 
 <script>
+import axios from "axios";
 export default {
     data() {
         return {
             member: {
-                firstName:"",
-                lastName:"",
-                trainer:"",
-                training:"",
+                firstName: "",
+                lastName: "",
+                coach_id: "",
+                training_id: "",
             },
+            users: [],
+            trainings: [],
+            coaches: [],
+            spinner: false,
+            csrfToken: "",
         };
     },
-    methods:{
-        registerMember(){
+    created() {
+        this.getUser();
+        this.getCoaches();
+        this.getTraining();
+    },
+    mounted() {
+        this.fetchCsrfToken();
+    },
+    methods: {
+        registerMember() {
+            const Member = {
+                firstName: this.member.firstName,
+                lastName: this.member.lastName,
+                coach_id: this.member.coach_id,
+                training_id: this.member.training_id,
+            };
 
-        }
-    }
+            axios.defaults.headers.common["X-CSRF-TOKEN"] = this.csrfToken;
+            axios
+                .post("/addMember", Member)
+                .then((response) => {
+                    this.message = response.data.message;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+        fetchCsrfToken() {
+            axios
+                .get("/sanctum/csrf-cookie")
+                .then((response) => {
+                    this.csrfToken = response.data.csrf_token;
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        },
+        getUser() {
+            axios
+                .get("/getUsers")
+                .then((response) => {
+                    this.users = response.data.users;
+
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+        getTraining() {
+            this.spinner = true;
+            axios
+                .get("/getTraining")
+                .then((response) => {
+                    this.trainings = response.data.trainings;
+                    console.log("Lista treninga: ", this.trainings);
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+                .finally(() => {
+                    this.spinner = false;
+                });
+        },
+        getCoaches() {
+            this.spinner = true;
+            axios
+                .get("/getCoaches")
+                .then((response) => {
+                    this.coaches = response.data.coaches;
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+                .finally(() => {
+                    this.spinner = false;
+                });
+        },
+    },
 };
 </script>
 

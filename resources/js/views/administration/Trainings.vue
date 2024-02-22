@@ -137,6 +137,7 @@ import Modal from "../../components/Modal.vue";
         </div>
 
         <div class="container mt-5">
+            <h3 class="text-light text-center mt-3 mb-5">Popis svih treninga</h3>
             <table class="table table-striped table-bordered table-dark">
                 <thead>
                     <tr>

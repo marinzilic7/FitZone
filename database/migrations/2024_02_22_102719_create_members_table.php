@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('members', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('trener_id');
+            $table->unsignedBigInteger('coach_id');
             $table->unsignedBigInteger('training_id');
+            $table->string('firstName');
+            $table->string('lastName');
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
-            $table->foreign('trener_id')->references('id')->on('coaches')->cascadeOnDelete();
+            $table->foreign('coach_id')->references('id')->on('coaches')->cascadeOnDelete();
             $table->foreign('training_id')->references('id')->on('trainings')->cascadeOnDelete();
             $table->timestamps();
         });
