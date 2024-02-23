@@ -6,29 +6,27 @@ import Modal from "../../components/Modal.vue";
 
 <template>
     <Navbar />
-    <div v-for="user in users" :key="user.id">
-        <div
-            v-if="user.role === 'administrator'"
-            class="position-absoulte start-0 top-0"
-        >
-            <div>
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="40"
-                    height="40"
-                    fill="currentColor"
-                    class="bi bi-list text-light"
-                    viewBox="0 0 16 16"
-                    data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasScrolling"
-                    aria-controls="offcanvasScrolling"
-                >
-                    <path
-                        fill-rule="evenodd"
-                        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"
-                    />
-                </svg>
-            </div>
+    <div
+        v-if="data.role === 'administrator'"
+        class="position-absoulte start-0 top-0"
+    >
+        <div>
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="40"
+                height="40"
+                fill="currentColor"
+                class="bi bi-list text-light"
+                viewBox="0 0 16 16"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasScrolling"
+                aria-controls="offcanvasScrolling"
+            >
+                <path
+                    fill-rule="evenodd"
+                    d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"
+                />
+            </svg>
         </div>
     </div>
     <div>
@@ -182,7 +180,8 @@ import Modal from "../../components/Modal.vue";
         </div>
         <h3 class="text-center mt-5 text-light">Svi treneri</h3>
         <div class="container mt-5">
-            <table class="table table-striped table-bordered table-dark">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-dark">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
@@ -409,6 +408,8 @@ import Modal from "../../components/Modal.vue";
                     </tr>
                 </tbody>
             </table>
+            </div>
+
         </div>
     </div>
     <Modal />
@@ -443,12 +444,14 @@ export default {
                 image: "",
             },
             coachId:null,
+            data:[],
         };
     },
     created() {
         this.getCoaches();
         this.fetchCsrfToken();
         this.getUser();
+        this.getData();
     },
     methods: {
         fetchCsrfToken() {
@@ -583,6 +586,17 @@ export default {
                     this.getCoaches();
                 });
             $("#exampleModall" + this.coachId).modal("hide");
+        },
+        getData() {
+            axios
+                .get("/getUserData")
+                .then((response) => {
+                    this.data = response.data;
+                    console.log(this.data.role);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         },
     },
 };

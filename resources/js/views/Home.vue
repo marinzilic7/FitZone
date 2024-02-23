@@ -27,15 +27,15 @@ import Footer from '../components/Footer.vue';
             >
                 <div>
                     <h1 class="text-warning">4k</h1>
-                    <p class="text-warning">Clients</p>
+                    <p class="text-warning">Klijenata</p>
                 </div>
                 <div>
                     <h1 class="text-warning">3.4k+</h1>
-                    <p class="text-warning">Happy Client</p>
+                    <p class="text-warning">Zadovoljnih klijenata</p>
                 </div>
                 <div>
                     <h1 class="text-warning">3k+</h1>
-                    <p class="text-warning">Perfect Result</p>
+                    <p class="text-warning">Odličnih rezultata</p>
                 </div>
             </div>
         </div>

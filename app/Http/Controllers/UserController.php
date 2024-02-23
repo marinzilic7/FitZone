@@ -90,4 +90,11 @@ class UserController extends Controller
         $user->delete();
         return response()->json(['message' => 'Korisnik izbrisan']);
     }
+
+    public function adminUser($id){
+        $user = User::findorFail($id);
+        $user->role = 'administrator';
+        $user->save();
+        return response()->json(['message' => 'Korisnik postavljen za admina']);
+    }
 }

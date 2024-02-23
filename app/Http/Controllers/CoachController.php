@@ -84,8 +84,14 @@ class CoachController extends Controller
 
         $coach->save();
         return response()->json([
-            'poruka' => 'Radionica uspjesno uređena',
+            'poruka' => 'Uspjesno uredjeno',
             'coach' => $coach,
         ]);
+    }
+
+    public function searchCoach(Request $request){
+        $searchText = $request->input('searchText');
+        $results = Coach::where('firstName', 'like', "%$searchText%")->get();
+        return response()->json(['results' => $results]);
     }
 }

@@ -15,6 +15,7 @@ Route::get('/isLogged',[UserController::class,'isLogged']);
 Route::get('/getUserData',[UserController::class,'getUserData']);
 Route::get('/getUsers',[UserController::class,'getUsers']);
 Route::post('/deleteUser/{id}',[UserController::class,'deleteUser']);
+Route::post('/adminUser/{id}',[UserController::class,'adminUser']);
 
 Route::post('/addCoach',[CoachController::class,'addCoach']);
 Route::get('/getCoaches',[CoachController::class,'getCoaches']);
@@ -28,6 +29,10 @@ Route::post('/deleteTraining/{id}',[TrainingController::class,'deleteTraining'])
 Route::post('/addMember',[MemberController::class,'addMember']);
 Route::get('/getMembers',[MemberController::class,'getMember']);
 Route::post('/deleteMember/{id}',[MemberController::class,'deleteMember']);
+
+
+Route::get('/search',[CoachController::class,'searchCoach']);
+
 
 
 Route::get('/{any}', function () {

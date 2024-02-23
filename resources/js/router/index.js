@@ -10,6 +10,7 @@ import Trainings from '../views/administration/Trainings.vue'
 import Member from '../views/Member.vue'
 import Categories from '../views/Categories.vue'
 import Members from '../views/administration/Members.vue'
+import Search from '../views/Search.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,7 +45,6 @@ const router = createRouter({
             path:'/users',
             name: 'users',
             component: Users,
-
         },
         {
             path:'/coach',
@@ -70,8 +70,14 @@ const router = createRouter({
             path:'/members',
             name: 'members',
             component: Members
+        },
+        {
+            path:'/search',
+            name:'search',
+            component: Search
         }
     ]
 })
+
 
 export default router

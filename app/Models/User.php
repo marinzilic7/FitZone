@@ -29,5 +29,10 @@ class User extends Model implements Authenticatable
         return $this->hasMany(Member::class);
     }
 
+    public function isAdmin()
+    {
+        return $this->role === 'administrator';
+    }
+
     use HasFactory;
 }

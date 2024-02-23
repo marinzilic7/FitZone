@@ -6,9 +6,8 @@ import Modal from "../../components/Modal.vue";
 
 <template>
     <Navbar />
-    <div v-for="user in users" :key="user.id">
-        <div
-            v-if="user.role === 'administrator'"
+    <div
+            v-if="data.role === 'administrator'"
             class="position-absoulte start-0 top-0"
         >
             <div>
@@ -30,7 +29,6 @@ import Modal from "../../components/Modal.vue";
                 </svg>
             </div>
         </div>
-    </div>
 
     <h1 class="text-center mt-3 text-light">Svi korisnici</h1>
     <div class="container mt-5">
@@ -43,6 +41,7 @@ import Modal from "../../components/Modal.vue";
                     <th scope="col">Email</th>
                     <th scope="col">Uloga</th>
                     <th scope="col">Izbrisi</th>
+                    <th scope="col">Opcije</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,7 +52,7 @@ import Modal from "../../components/Modal.vue";
                     <td>{{ user.email }}</td>
                     <td>{{ user.role }}</td>
                     <td>
-                        <button class="btn btn-sm" @click="deleteUser(user.id)">
+                        <button class="btn btn-sm" @click="deleteUser(user.id) ">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="25"
@@ -67,6 +66,26 @@ import Modal from "../../components/Modal.vue";
                                 />
                                 <path
                                     d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z"
+                                />
+                            </svg>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm"  title="Postavi kao administratora" @click="adminUser(user.id)">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="25"
+                                height="25"
+                                fill="currentColor"
+                                class="bi bi-person-workspace text-success"
+                                viewBox="0 0 16 16"
+
+                            >
+                                <path
+                                    d="M4 16s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-5.95a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"
+                                />
+                                <path
+                                    d="M2 1a2 2 0 0 0-2 2v9.5A1.5 1.5 0 0 0 1.5 14h.653a5.4 5.4 0 0 1 1.066-2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v9h-2.219c.554.654.89 1.373 1.066 2h.653a1.5 1.5 0 0 0 1.5-1.5V3a2 2 0 0 0-2-2z"
                                 />
                             </svg>
                         </button>
@@ -85,10 +104,12 @@ export default {
     data() {
         return {
             users: [],
+            data:[],
         };
     },
     created() {
         this.getUser();
+        this.getData();
     },
     methods: {
         getUser() {
@@ -108,6 +129,28 @@ export default {
                 .then((response) => {
                     this.message = response.data.message;
                     this.getUser();
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+        adminUser(id){
+            axios
+                .post(`/adminUser/${id}`)
+                .then((response) => {
+                    this.message = response.data.message;
+                    this.getUser();
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+        getData() {
+            axios
+                .get("/getUserData")
+                .then((response) => {
+                    this.data = response.data;
+                    console.log(this.data.role);
                 })
                 .catch((error) => {
                     console.log(error);

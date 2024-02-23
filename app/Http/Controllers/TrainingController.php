@@ -42,4 +42,10 @@ class TrainingController extends Controller
         $training->delete();
         return response()->json(['message' => 'Trening izbrisan']);
     }
+
+    public function searchTraining(Request $request){
+        $searchText = $request->input('searchText');
+        $results = Training::where('name', 'like', "%$searchText%")->get();
+        return response()->json(['results' => $results]);
+    }
 }

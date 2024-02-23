@@ -5,11 +5,31 @@ import Footer from "../components/Footer.vue";
 
 <template>
     <Navbar />
-    <div v-if="succesMember" class="alert alert-dark infoMessage col-lg-2 col-xl-2 col-12 float-end ms-3 mt-3 me-3" role="alert">
-       {{message}}
+    <div
+        v-if="succesMember"
+        class="alert alert-dark infoMessage col-lg-2 col-xl-2 col-12 float-end ms-3 mt-3 me-3"
+        role="alert"
+    >
+        {{ message }}
     </div>
-    <div v-if="failedMember" class="alert alert-dark infoMessage col-lg-2 col-xl-2 col-12 float-end ms-3 mt-3 me-3" role="alert">
-       Već ste učlanjeni!
+    <div
+        v-if="failedMember"
+        class="alert alert-dark infoMessage col-lg-2 col-xl-2 col-12 float-end ms-3 mt-3 me-3"
+        role="alert"
+    >
+        Već ste učlanjeni!
+    </div>
+
+    <div v-if="!isLoggedIn">
+        <div class="container d-flex justify-content-center">
+            <div>
+                <div class="alert alert-dark mt-5 infoMessage">
+                    Prijavite se kako bi mogli da se uclanite!
+                    <router-link  to="/">Prijava</router-link>
+                </div>
+
+            </div>
+        </div>
     </div>
 
     <div class="container d-flex justify-content-center">
@@ -21,97 +41,104 @@ import Footer from "../components/Footer.vue";
             <span class="visually-hidden">Loading...</span>
         </div>
     </div>
-    <div v-if="!spinner">
-        <h1 class="text-light text-center mt-5">Učlani se</h1>
-        <div class="container-fluid mt-3">
-            <div class="container">
-                <div
-                    class="login-form d-flex justify-content-center align-items-center"
-                    v-for="user in users"
-                    :key="user.id"
-                >
-                    <form
-                        @submit.prevent="registerMember()"
-                        method="POST"
-                        class="col-12 col-sm-12 col-md-10 col-lg-7 p-5 rounded-3 shadow-sm login-form-details"
+    <div v-if="isLoggedIn" >
+        <div v-if="!spinner">
+            <h1 class="text-light text-center mt-5">Učlani se</h1>
+            <div class="container-fluid mt-3">
+                <div class="container">
+                    <div
+                        class="login-form d-flex justify-content-center align-items-center"
+                        v-for="user in users"
+                        :key="user.id"
                     >
-                        <div class="mb-3 d-flex justify-content-center">
-                            <img src="../images/logo.png" alt="" />
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="floatingInput"
-                                placeholder="ime"
-                                v-model="member.firstName"
-                            />
-                            <label for="floatingInput">Ime</label>
-                        </div>
-
-                        <div class="form-floating mb-3">
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="floatingInput"
-                                placeholder="prezime"
-                                v-model="member.lastName"
-                            />
-                            <label for="floatingInput">Prezime</label>
-                        </div>
-                        <div>
-                            <select
-                                id="coachSelect"
-                                class="form-select"
-                                aria-label="Default select example"
-                                v-model="member.coach_id"
-                            >
-                                <option disabled value="">
-                                    Odaberi trenera
-                                </option>
-                                <option
-                                    v-for="coach in coaches"
-                                    :value="coach.id"
-                                >
-                                    {{ coach.firstName }} {{ coach.lastName }}
-                                </option>
-                            </select>
-                        </div>
-                        <div class="mt-3">
-                            <select
-                                class="form-select"
-                                id="trainSelect"
-                                aria-label="Default select example"
-                                v-model="member.training_id"
-                            >
-                                <option disabled value="">
-                                    Odaberi trening
-                                </option>
-                                <option
-                                    v-for="training in trainings"
-                                    :value="training.id"
-                                >
-                                    {{ training.name }}
-                                </option>
-                            </select>
-                        </div>
-
-                        <button
-                            type="submit"
-                            class="btn p-3 w-100 mt-3 login-btn"
+                        <form
+                            @submit.prevent="registerMember()"
+                            method="POST"
+                            class="col-12 col-sm-12 col-md-10 col-lg-7 p-5 rounded-3 shadow-sm login-form-details"
                         >
-                            Učlani se
-                        </button>
-                    </form>
+                            <div class="mb-3 d-flex justify-content-center">
+                                <img src="../images/logo.png" alt="" />
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="floatingInput"
+                                    placeholder="ime"
+                                    v-model="member.firstName"
+                                />
+                                <label for="floatingInput">Ime</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="floatingInput"
+                                    placeholder="prezime"
+                                    v-model="member.lastName"
+                                />
+                                <label for="floatingInput">Prezime</label>
+                            </div>
+                            <div>
+                                <select
+                                    id="coachSelect"
+                                    class="form-select"
+                                    aria-label="Default select example"
+                                    v-model="member.coach_id"
+                                >
+                                    <option disabled value="">
+                                        Odaberi trenera
+                                    </option>
+                                    <option
+                                        v-for="coach in coaches"
+                                        :value="coach.id"
+                                    >
+                                        {{ coach.firstName }}
+                                        {{ coach.lastName }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="mt-3">
+                                <select
+                                    class="form-select"
+                                    id="trainSelect"
+                                    aria-label="Default select example"
+                                    v-model="member.training_id"
+                                >
+                                    <option disabled value="">
+                                        Odaberi trening
+                                    </option>
+                                    <option
+                                        v-for="training in trainings"
+                                        :value="training.id"
+                                    >
+                                        {{ training.name }}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <button
+                                type="submit"
+                                class="btn p-3 w-100 mt-3 login-btn"
+                            >
+                                Učlani se
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
     <Footer />
 </template>
 
 <script>
+import { mapState } from "vuex";
 import axios from "axios";
+import { mapGetters } from "vuex";
+
 export default {
     data() {
         return {
@@ -126,10 +153,18 @@ export default {
             coaches: [],
             spinner: false,
             csrfToken: "",
-            message:"",
-            succesMember:false,
-            failedMember:false,
+            message: "",
+            succesMember: false,
+            failedMember: false,
+            isLoggedIn: false,
         };
+    },
+    computed: {
+        ...mapState(["loginMessage"]),
+        ...mapGetters(["loggedInUser"]),
+        isLoggedIn() {
+            return this.loggedInUser !== null;
+        },
     },
     created() {
         this.getUser();
@@ -163,7 +198,6 @@ export default {
                         error.response.status === 409
                     ) {
                         this.failedMember = true;
-
                     }
                 });
         },
@@ -221,11 +255,10 @@ export default {
 </script>
 
 <style scoped>
-
-.infoMessage{
-    color:#000;
+.infoMessage {
+    color: #000;
     background-color: #ffba00;
-    border:none;
+    border: none;
     text-align: center;
 }
 .login-form-details {

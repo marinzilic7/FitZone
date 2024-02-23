@@ -49,9 +49,12 @@
                             ></span
                         >
                     </p>
-                    <p class="text-center text-light text-decoration-underline">
-                        Pogledaj kao gost
-                    </p>
+                    <div class="d-flex justify-content-center">
+                        <router-link class="text-center text-light" to="/home"
+                            >Pogledaj kao gost</router-link
+                        >
+                    </div>
+
                     <div
                         class="mt-3 alert alert-info infoMessage text-center"
                         v-if="falseLogin"
@@ -172,10 +175,10 @@ export default {
     border: none;
 }
 
-.infoMessage{
-    color:#000;
+.infoMessage {
+    color: #000;
     background-color: #ffba00;
-    border:none;
+    border: none;
     text-align: center;
 }
 </style>

@@ -47,12 +47,15 @@ import { RouterLink, RouterView } from "vue-router";
                            <RouterLink class="nav-link text-light" to="/categories">Treninzi</RouterLink>
                         </li>
                     </ul>
-                    <form class="d-flex" role="search">
+                    <form class="d-flex" role="search"
+                    @submit.prevent="searchItems">
+
                         <input
                             class="form-control me-2 searchBar shadow-none"
                             type="search"
                             placeholder="Search"
                             aria-label="Search"
+                            v-model="searchText"
                         />
                         <div>
                             <svg
@@ -121,6 +124,7 @@ export default {
     data() {
         return {
             isLoggedIn: false,
+            searchText:'',
         };
     },
 
@@ -165,6 +169,24 @@ export default {
                     console.log(error);
                 });
         },
+
+        searchItems(){
+            axios
+                .get("/search", { params: { searchText: this.searchText } })
+                .then((response) => {
+                    const results = response.data.results;
+                    this.search = true;
+                    console.log(results);
+
+                    this.$router.push({
+                        name: "search",
+                        query: { results: JSON.stringify(results) },
+                    });
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
     },
 };
 </script>

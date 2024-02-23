@@ -6,29 +6,27 @@ import Modal from "../../components/Modal.vue";
 
 <template>
     <Navbar />
-    <div v-for="user in users" :key="user.id">
-        <div
-            v-if="user.role === 'administrator'"
-            class="position-absoulte start-0 top-0"
-        >
-            <div>
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="40"
-                    height="40"
-                    fill="currentColor"
-                    class="bi bi-list text-light"
-                    viewBox="0 0 16 16"
-                    data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasScrolling"
-                    aria-controls="offcanvasScrolling"
-                >
-                    <path
-                        fill-rule="evenodd"
-                        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"
-                    />
-                </svg>
-            </div>
+    <div
+        v-if="data.role === 'administrator'"
+        class="position-absoulte start-0 top-0"
+    >
+        <div>
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="40"
+                height="40"
+                fill="currentColor"
+                class="bi bi-list text-light"
+                viewBox="0 0 16 16"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasScrolling"
+                aria-controls="offcanvasScrolling"
+            >
+                <path
+                    fill-rule="evenodd"
+                    d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"
+                />
+            </svg>
         </div>
     </div>
     <div>
@@ -198,6 +196,7 @@ export default {
             csrfToken: "",
             trainings: [],
             users: [],
+            data:[]
         };
     },
     mounted() {
@@ -206,6 +205,7 @@ export default {
     created() {
         this.getTraining();
         this.getUser();
+        this.getData();
     },
     methods: {
         imageChange(event) {
@@ -281,6 +281,17 @@ export default {
                 .then((response) => {
                     this.users = response.data.users;
                     console.log(this.users);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+        getData() {
+            axios
+                .get("/getUserData")
+                .then((response) => {
+                    this.data = response.data;
+                    console.log(this.data.role);
                 })
                 .catch((error) => {
                     console.log(error);
