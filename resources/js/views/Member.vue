@@ -43,13 +43,12 @@ import Footer from "../components/Footer.vue";
     </div>
     <div v-if="isLoggedIn" >
         <div v-if="!spinner">
-            <h1 class="text-light text-center mt-5">Učlani se</h1>
+            <h1 class="text-light text-center mt-3">Učlani se</h1>
             <div class="container-fluid mt-3">
                 <div class="container">
                     <div
                         class="login-form d-flex justify-content-center align-items-center"
-                        v-for="user in users"
-                        :key="user.id"
+
                     >
                         <form
                             @submit.prevent="registerMember()"
@@ -215,7 +214,7 @@ export default {
             axios
                 .get("/getUsers")
                 .then((response) => {
-                    this.users = response.data.users;
+                    this.users = response.data;
                 })
                 .catch((error) => {
                     console.log(error);

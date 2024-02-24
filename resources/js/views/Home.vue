@@ -23,7 +23,7 @@ import Footer from '../components/Footer.vue';
                 Kreni
             </button>
             <div
-                class="d-flex justify-content-between col-12 col-xl-3 col-lg-5 mt-3"
+                class="d-flex justify-content-between col-12 col-xl-3 col-lg-5 mt-3 gym-items"
             >
                 <div>
                     <h1 class="text-warning">4k</h1>
@@ -94,6 +94,39 @@ export default {
     }
     to {
         opacity: 1;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .info p{
+        font-size: 16px !important;
+    }
+
+    .animateText{
+        font-size: 25px;
+    }
+
+    .gym-items h1{
+        font-size: 20px;
+        margin-left: 20px;
+    }
+
+    .gym-items p{
+        font-size: 15px !important;
+        margin-left: 15px;
+    }
+}
+
+@media screen and (max-width: 1700px) {
+
+    .info{
+        height: 450px;
+        overflow-y: hidden !important;
+    }
+    .animateText{
+        position: relative;
+        bottom: 50px;
+        font-size: 50px;
     }
 }
 

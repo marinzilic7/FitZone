@@ -8,7 +8,7 @@ import Footer from "../components/Footer.vue";
     <div>
         <h2 class="text-center text-light mt-5">Rezultati pretrage:</h2>
 
-        <div class="card" v-for="result in searchResults" :key="result.id" style="width: 18rem">
+        <div class="card ms-5" v-for="result in searchResults" :key="result.id" style="width: 18rem">
             <img :src="getImageUrl(result.image)" alt="" />
             <div class="card-body bg-dark">
                 <h5 class="card-title text-light">Ime: {{ result.firstName }}</h5>
@@ -28,17 +28,22 @@ import Footer from "../components/Footer.vue";
 export default {
     data() {
         return {
-            searchResults: [], // Dodajte prazan niz za prikaz rezultata pretrage
+            searchResults: [],
         };
     },
     mounted() {
-        this.searchResults = JSON.parse(this.$route.query.results); // Dobijte rezultate iz query parametra i pretvorite ih u objekat
+        this.searchResults = JSON.parse(this.$route.query.results);
+
     },
+
     methods: {
         getImageUrl(imageName) {
             return `/images/${imageName}`;
         },
+
     },
+
+
 
 };
 </script>

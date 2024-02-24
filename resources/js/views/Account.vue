@@ -31,21 +31,20 @@ import axios from "axios";
                 </svg>
             </div>
         </div>
-        <h1 class="text-center text-light mt-3">
-            Pozdrav {{ data.firstName }}
-        </h1>
-        <h3 class="text-center text-light mt-2">Ovo su tvoji detalji računa</h3>
+        <h3 class="text-center text-light">Pozdrav {{ data.firstName }}</h3>
+        <h5 class="text-center text-light">Ovo su tvoji detalji računa</h5>
         <div class="container">
             <div
                 class="login-form d-flex justify-content-center align-items-center"
             >
                 <form
-                    class="col-12 col-sm-12 col-md-10 col-lg-7 p-5 mt-3 rounded-3 shadow-sm login-form-details"
+                    class="col-12 col-sm-12 col-md-10 col-lg-7 mt-1 rounded-3 shadow-sm login-form-details"
                 >
-                    <div class="mb-3 d-flex justify-content-center">
+                    <div class=" d-flex justify-content-center accImg">
                         <img src="../images/logo.png" alt="" />
                     </div>
-                    <div class="form-floating mb-3">
+                    <div class="mb-2">
+                        <label for="floatingInput" class="text-light">Ime</label>
                         <input
                             type="text"
                             class="form-control"
@@ -54,10 +53,10 @@ import axios from "axios";
                             :value="data.firstName"
                             disabled
                         />
-                        <label for="floatingInput">Ime</label>
-                    </div>
 
-                    <div class="form-floating mb-3">
+                    </div>
+                    <label for="floatingInput" class="text-light">Prezime</label>
+                    <div class="mb-2">
                         <input
                             type="text"
                             class="form-control"
@@ -66,10 +65,11 @@ import axios from "axios";
                             :value="data.lastName"
                             disabled
                         />
-                        <label for="floatingInput">Prezime</label>
+
                     </div>
 
-                    <div class="form-floating mb-3">
+                    <div class="mb-2">
+                        <label for="floatingInput" class="text-light">Email</label>
                         <input
                             type="email"
                             class="form-control"
@@ -78,10 +78,13 @@ import axios from "axios";
                             :value="data.email"
                             disabled
                         />
-                        <label for="floatingInput">Email</label>
+
                     </div>
 
-                    <div class="form-floating">
+                    <div class="mb-2">
+                        <label for="floatingPassword" class="text-light"
+                            >Lozinka</label
+                        >
                         <input
                             type="password"
                             class="form-control"
@@ -90,9 +93,11 @@ import axios from "axios";
                             value="********"
                             disabled
                         />
-                        <label for="floatingPassword">Lozinka</label>
                     </div>
-                    <div class="form-floating mt-3">
+                    <div>
+                        <label for="floatingPassword" class="text-light"
+                            >Uloga</label
+                        >
                         <input
                             type="text"
                             class="form-control"
@@ -101,7 +106,6 @@ import axios from "axios";
                             :value="data.role"
                             disabled
                         />
-                        <label for="floatingPassword">Uloga</label>
                     </div>
                 </form>
             </div>
@@ -140,6 +144,13 @@ export default {
 <style scoped>
 .login-form-details {
     background-color: #282828;
-    padding: 5vh !important;
+    padding: 2vh !important;
+}
+
+@media screen and (max-width: 1700px) {
+    .login-form-details {
+        background-color: #282828;
+        padding: 2vh !important;
+    }
 }
 </style>

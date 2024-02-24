@@ -36,29 +36,29 @@ import Modal from "../../components/Modal.vue";
                 <table class="table table-striped table-bordered table-dark">
                     <thead>
                         <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Ime</th>
-                            <th scope="col">Prezime</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Uloga</th>
-                            <th scope="col">Trening</th>
-                            <th scope="col">Trener</th>
-                            <th scope="col">Izbrisi</th>
+                            <th scope="col" class="text-center">ID</th>
+                            <th scope="col" class="text-center">Ime</th>
+                            <th scope="col" class="text-center">Prezime</th>
+                            <th scope="col" class="text-center">Email</th>
+                            <th scope="col" class="text-center">Uloga</th>
+                            <th scope="col" class="text-center">Trening</th>
+                            <th scope="col" class="text-center">Trener</th>
+                            <th scope="col" class="text-center">Izbrisi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="clan in members">
-                            <th scope="row">{{ clan.id }}</th>
-                            <td>{{ clan.user.firstName }}</td>
-                            <td>{{ clan.user.lastName }}</td>
-                            <td>{{ clan.user.email }}</td>
-                            <td>{{ clan.user.role }}</td>
-                            <td>{{ clan.training.name }}</td>
-                            <td>
+                            <th scope="row" class="text-center">{{ clan.id }}</th>
+                            <td class="text-center">{{ clan.user.firstName }}</td>
+                            <td class="text-center">{{ clan.user.lastName }}</td>
+                            <td class="text-center">{{ clan.user.email }}</td>
+                            <td class="text-center">{{ clan.user.role }}</td>
+                            <td class="text-center">{{ clan.training.name }}</td>
+                            <td class="text-center">
                                 {{ clan.coach.firstName }}
                                 {{ clan.coach.lastName }}
                             </td>
-                            <td>
+                            <td class="text-center">
                                 <button
                                     class="btn btn-sm"
                                     @click="deleteMember(clan.id)"

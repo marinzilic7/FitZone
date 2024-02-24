@@ -181,30 +181,30 @@ import Modal from "../../components/Modal.vue";
         <h3 class="text-center mt-5 text-light">Svi treneri</h3>
         <div class="container mt-5">
             <div class="table-responsive">
-                <table class="table table-striped table-bordered table-dark">
+                <table class="table table-striped table-bordered table-dark table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Ime</th>
-                        <th scope="col">Prezime</th>
-                        <th scope="col">Opis</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Godine</th>
-                        <th scope="col">Kontakt</th>
-                        <th scope="col">Izbrisi</th>
-                        <th scope="col">Uredi</th>
+                        <th scope="col" class="text-center" >ID</th>
+                        <th scope="col" class="text-center">Ime</th>
+                        <th scope="col" class="text-center">Prezime</th>
+                        <th scope="col" class="text-center">Opis</th>
+                        <th scope="col" class="text-center">Email</th>
+                        <th scope="col" class="text-center">Godine</th>
+                        <th scope="col" class="text-center">Kontakt</th>
+                        <th scope="col" class="text-center">Izbrisi</th>
+                        <th scope="col" class="text-center">Uredi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="coach in coaches">
-                        <th scope="row">{{ coach.id }}</th>
-                        <td>{{ coach.firstName }}</td>
-                        <td>{{ coach.lastName }}</td>
-                        <td>{{ coach.description }}</td>
-                        <td>{{ coach.email }}</td>
-                        <td>{{ coach.age }}</td>
-                        <td>{{ coach.phone }}</td>
-                        <td>
+                        <th scope="row" class="text-center">{{ coach.id }}</th>
+                        <td class="text-center">{{ coach.firstName }}</td>
+                        <td class="text-center">{{ coach.lastName }}</td>
+                        <td class="text-center">{{ coach.description }}</td>
+                        <td class="text-center">{{ coach.email }}</td>
+                        <td class="text-center">{{ coach.age }}</td>
+                        <td class="text-center">{{ coach.phone }}</td>
+                        <td class="text-center">
                             <button
                                 class="btn btn-sm"
                                 @click="deleteCoach(coach.id)"
@@ -226,7 +226,7 @@ import Modal from "../../components/Modal.vue";
                                 </svg>
                             </button>
                         </td>
-                        <td>
+                        <td class="text-center">
                             <button
                                 class="btn btn-sm"
                                 data-bs-toggle="modal"

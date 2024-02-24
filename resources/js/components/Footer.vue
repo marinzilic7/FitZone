@@ -1,5 +1,5 @@
 <template>
-    <div class="position-fixed bottom-0 footerBar w-100 p-3">
+    <div class="position-fixed bottom-0 footerBar w-100 ">
         <p class="text-center text-light mt-3">Copyright © Andrea Dumandzic 2024</p>
     </div>
 </template>

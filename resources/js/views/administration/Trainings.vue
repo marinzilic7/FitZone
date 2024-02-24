@@ -139,18 +139,18 @@ import Modal from "../../components/Modal.vue";
             <table class="table table-striped table-bordered table-dark">
                 <thead>
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Ime</th>
-                        <th scope="col">Opis</th>
-                        <th scope="col">Izbrisi</th>
+                        <th scope="col" class="text-center">ID</th>
+                        <th scope="col" class="text-center">Ime</th>
+                        <th scope="col" class="text-center">Opis</th>
+                        <th scope="col" class="text-center">Izbrisi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="training in trainings">
-                        <th scope="row">{{ training.id }}</th>
-                        <td>{{ training.name }}</td>
-                        <td>{{ training.description }}</td>
-                        <td>
+                        <th scope="row" class="text-center">{{ training.id }}</th>
+                        <td class="text-center">{{ training.name }}</td>
+                        <td class="text-center">{{ training.description }}</td>
+                        <td class="text-center">
                             <button
                                 class="btn btn-sm"
                                 @click="deleteTraining(training.id)"

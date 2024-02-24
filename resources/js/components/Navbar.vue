@@ -13,7 +13,7 @@ import { RouterLink, RouterView } from "vue-router";
                     alt=""
                 />
                 <button
-                    class="navbar-toggler"
+                    class="navbar-toggler border-light shadow-none"
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent"
@@ -21,7 +21,19 @@ import { RouterLink, RouterView } from "vue-router";
                     aria-expanded="false"
                     aria-label="Toggle navigation"
                 >
-                    <span class="navbar-toggler-icon"></span>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="35"
+                        height="35"
+                        fill="currentColor"
+                        class="bi bi-list text-light"
+                        viewBox="0 0 16 16"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"
+                        />
+                    </svg>
                 </button>
                 <div
                     class="collapse navbar-collapse"
@@ -41,15 +53,23 @@ import { RouterLink, RouterView } from "vue-router";
                             >
                         </li>
                         <li class="nav-item">
-                           <RouterLink class="nav-link text-light" to="/member">Članarine</RouterLink>
+                            <RouterLink class="nav-link text-light" to="/member"
+                                >Članarine</RouterLink
+                            >
                         </li>
                         <li class="nav-item">
-                           <RouterLink class="nav-link text-light" to="/categories">Treninzi</RouterLink>
+                            <RouterLink
+                                class="nav-link text-light"
+                                to="/categories"
+                                >Treninzi</RouterLink
+                            >
                         </li>
                     </ul>
-                    <form class="d-flex" role="search"
-                    @submit.prevent="searchItems">
-
+                    <form
+                        class="d-flex"
+                        role="search"
+                        @submit.prevent="searchItems"
+                    >
                         <input
                             class="form-control me-2 searchBar shadow-none"
                             type="search"
@@ -124,7 +144,7 @@ export default {
     data() {
         return {
             isLoggedIn: false,
-            searchText:'',
+            searchText: "",
         };
     },
 
@@ -170,7 +190,7 @@ export default {
                 });
         },
 
-        searchItems(){
+        searchItems() {
             axios
                 .get("/search", { params: { searchText: this.searchText } })
                 .then((response) => {
@@ -186,7 +206,7 @@ export default {
                 .catch((error) => {
                     console.log(error);
                 });
-        }
+        },
     },
 };
 </script>
