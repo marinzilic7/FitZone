@@ -7,11 +7,11 @@ import Footer from "../components/Footer.vue";
     <Navbar />
     <div>
         <h3 class="text-center text-light mt-5">Svi treninzi</h3>
-        <div class="d-flex gap-3 flex-wrap mt-5">
+        <div class="d-flex gap-3 flex-wrap mt-5" style="margin-bottom: 100px;">
             <div
                 class="card d-flex ms-5 mt-3 flex-wrap "
                 v-for="training in trainings"
-                style="width: 18rem"
+                style="width: 18rem;"
             >
                 <img
                     :src="'/images/' + training.image"
@@ -20,7 +20,7 @@ import Footer from "../components/Footer.vue";
                     width="18rem"
                     height="200px"
                 />
-                <div class="card-body bg-dark">
+                <div class="card-body bg-dark" >
                     <h5 class="card-title text-light">{{ training.name }}</h5>
                     <hr class="text-light" />
                     <p class="card-text text-light">
@@ -34,7 +34,7 @@ import Footer from "../components/Footer.vue";
             </div>
         </div>
     </div>
-    <Footer />
+    <Footer  />
 </template>
 
 <script>
