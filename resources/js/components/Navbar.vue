@@ -145,6 +145,7 @@ export default {
         return {
             isLoggedIn: false,
             searchText: "",
+            data:[],
         };
     },
 
@@ -170,7 +171,7 @@ export default {
                     this.loggedInUser = response.data;
 
                     this.isLoggedIn = true;
-                    console.log(this.isLoggedIn);
+                    console.log("Ovo je prijavljeni korisnik", this.loggedInUser);
                 })
                 .catch((error) => {
                     console.log(error);
@@ -205,6 +206,19 @@ export default {
                 })
                 .catch((error) => {
                     console.log(error);
+                });
+        },
+        getData() {
+            axios
+                .get("/getUserData")
+                .then((response) => {
+                    this.data = response.data;
+                    console.log(this.data.role);
+                })
+                .catch((error) => {
+                    console.log(error);
+                }).finally(() => {
+                    this.spinner = false;
                 });
         },
     },
