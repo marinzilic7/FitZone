@@ -169,6 +169,7 @@ export default {
         this.getUser();
         this.getCoaches();
         this.getTraining();
+        this.checkLoginStatus();
     },
     mounted() {
         this.fetchCsrfToken();
