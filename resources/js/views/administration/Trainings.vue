@@ -103,7 +103,7 @@ import Modal from "../../components/Modal.vue";
                                 <label
                                     for="recipient-name"
                                     class="col-form-label text-light"
-                                    >Cijena treninga:</label
+                                    >Cijena treninga mjesecno:</label
                                 >
                                 <input
                                     type="text"
