@@ -20,17 +20,7 @@ import Footer from "../components/Footer.vue";
         Već ste učlanjeni!
     </div>
 
-    <div v-if="!isLoggedIn">
-        <div class="container d-flex justify-content-center">
-            <div>
-                <div class="alert alert-dark mt-5 infoMessage">
-                    Prijavite se kako bi mogli da se uclanite!
-                    <router-link  to="/">Prijava</router-link>
-                </div>
 
-            </div>
-        </div>
-    </div>
 
     <div class="container d-flex justify-content-center">
         <div
@@ -129,14 +119,24 @@ import Footer from "../components/Footer.vue";
             </div>
         </div>
     </div>
+    <div v-if="warning">
+        <div class="container d-flex justify-content-center">
+            <div>
+                <div v-if="!spinner"  class="alert alert-dark mt-5 infoMessage">
+                    Prijavite se kako bi mogli da se uclanite!
+                    <router-link  to="/">Prijava</router-link>
+                </div>
 
+            </div>
+        </div>
+    </div>
     <Footer />
 </template>
 
 <script>
-import { mapState } from "vuex";
+
 import axios from "axios";
-import { mapGetters } from "vuex";
+
 
 export default {
     data() {
@@ -150,26 +150,21 @@ export default {
             users: [],
             trainings: [],
             coaches: [],
-            spinner: false,
+            spinner: true,
             csrfToken: "",
             message: "",
             succesMember: false,
             failedMember: false,
             isLoggedIn: false,
+            warning:false,
         };
     },
-    computed: {
-        ...mapState(["loginMessage"]),
-        ...mapGetters(["loggedInUser"]),
-        isLoggedIn() {
-            return this.loggedInUser !== null;
-        },
-    },
+
     created() {
         this.getUser();
         this.getCoaches();
         this.getTraining();
-        this.checkLoginStatus();
+        this.getData();
     },
     mounted() {
         this.fetchCsrfToken();
@@ -250,14 +245,19 @@ export default {
                     this.spinner = false;
                 });
         },
-        checkLoginStatus() {
+        getData() {
+            this.spinner = true;
             axios
-                .get("/isLogged")
+                .get("/getUserData")
                 .then((response) => {
-                    this.loggedInUser = response.data;
-
-                    this.isLoggedIn = true;
-                    console.log("Ovo je prijavljeni korisnik", this.loggedInUser);
+                    this.data = response.data.user;
+                    if(this.data === null){
+                        this.isLoggedIn = false;
+                        this.warning= true;
+                    }else{
+                        this.isLoggedIn = true;
+                    }
+                    console.log("Prijavljen je", this.data);
                 })
                 .catch((error) => {
                     console.log(error);

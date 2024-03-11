@@ -102,7 +102,7 @@ import { RouterLink, RouterView } from "vue-router";
                                 data-bs-toggle="dropdown"
                                 aria-expanded="false"
                             >
-                                {{ loggedInUser.firstName }}
+                                {{ data.firstName }}
                             </a>
                             <ul
                                 class="dropdown-menu dropdown-menu-end"
@@ -149,43 +149,19 @@ export default {
         };
     },
 
-    computed: {
-        ...mapState(["loginMessage"]),
-        ...mapGetters(["loggedInUser"]),
-        isLoggedIn() {
-            return this.loggedInUser !== null;
-        },
-    },
+
     created() {
-        if (this.loginMessage) {
-            setTimeout(() => {
-                this.$store.commit("setLoginMessage", "");
-            }, 2000);
-        }
-        this.checkLoginStatus();
         this.getData();
     },
     methods: {
-        checkLoginStatus() {
-            axios
-                .get("/isLogged")
-                .then((response) => {
-                    this.loggedInUser = response.data;
 
-                    this.isLoggedIn = true;
-                    console.log("Ovo je prijavljeni korisnik", this.loggedInUser);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        },
         logout() {
             axios
                 .post("/logout")
                 .then((response) => {
                     this.isLoggedIn = false;
-                    this.loggedInUser = null;
-                    this.$store.dispatch("logout");
+
+
                     this.$router.push("/");
                 })
                 .catch((error) => {
@@ -214,8 +190,9 @@ export default {
             axios
                 .get("/getUserData")
                 .then((response) => {
-                    this.data = response.data;
-                    console.log(this.data.role);
+                    this.data = response.data.user;
+                    this.isLoggedIn = true;
+                    console.log("Prijavljen je", this.data);
                 })
                 .catch((error) => {
                     console.log(error);
