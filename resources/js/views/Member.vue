@@ -250,6 +250,19 @@ export default {
                     this.spinner = false;
                 });
         },
+        checkLoginStatus() {
+            axios
+                .get("/isLogged")
+                .then((response) => {
+                    this.loggedInUser = response.data;
+
+                    this.isLoggedIn = true;
+                    console.log("Ovo je prijavljeni korisnik", this.loggedInUser);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
     },
 };
 </script>
