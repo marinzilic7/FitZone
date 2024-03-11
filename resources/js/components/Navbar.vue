@@ -191,7 +191,11 @@ export default {
                 .get("/getUserData")
                 .then((response) => {
                     this.data = response.data.user;
-                    this.isLoggedIn = true;
+                    if(this.data == null){
+                        this.isLoggedIn = false;
+                    }else{
+                        this.isLoggedIn = true;
+                    }
                     console.log("Prijavljen je", this.data);
                 })
                 .catch((error) => {
