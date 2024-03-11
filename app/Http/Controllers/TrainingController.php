@@ -34,7 +34,8 @@ class TrainingController extends Controller
     }
     public function getTrainings(){
         $trainings = Training::get();
-        return response()->json(['trainings' => $trainings]);
+        $trainingsCount = $trainings->count();
+        return response()->json(['trainings' => $trainings, 'trainings_count' => $trainingsCount]);
     }
 
     public function deleteTraining($id){
