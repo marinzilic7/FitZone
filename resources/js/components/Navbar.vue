@@ -162,6 +162,8 @@ export default {
                 this.$store.commit("setLoginMessage", "");
             }, 2000);
         }
+        this.checkLoginStatus();
+        this.getData();
     },
     methods: {
         checkLoginStatus() {
