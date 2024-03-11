@@ -12,6 +12,6 @@ export default defineConfig({
         ]),
     ],
     build: {
-        outDir: 'dist', // Postavite izlazni direktorij na 'dist'
+        outDir: 'dist',
     }
 });
