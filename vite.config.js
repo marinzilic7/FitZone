@@ -11,7 +11,5 @@ export default defineConfig({
             'resources/js/app.js',
         ]),
     ],
-    build: {
-        outDir: 'dist',
-    }
+
 });
