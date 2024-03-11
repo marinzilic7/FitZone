@@ -133,6 +133,9 @@ export default{
                         password: "",
                     };
                     this.errors = {};
+                    setTimeout(() => {
+                        this.successMessage = false;
+                    }, 3000);
                 })
                 .catch((error) => {
                     if (error.response && error.response.status === 422) {
